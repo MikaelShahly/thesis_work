@@ -1,0 +1,38 @@
+% ============================================================================
+%  skeleton-paper.tex — scientific paper layout (article class, preprint style).
+%  A content-free LaTeX scaffold with the paper-specific wiring: author/
+%  affiliation block, abstract, keywords. Single column by default; for two
+%  columns use \documentclass[11pt,twocolumn,a4paper]{article} and wrap any
+%  full-width float as figure*/table*.
+%  Compile:  bash scripts/build.sh skeleton-paper.tex
+%  Keep preamble.tex (and references.bib) alongside this file.
+% ============================================================================
+\documentclass[11pt,a4paper]{article}
+\input{preamble}
+
+\title{Title}
+\author{First Author\thanks{Affiliation, City, Country. \texttt{email@example.org}}}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+Abstract text.
+\end{abstract}
+
+\noindent\textbf{Keywords:} keyword one; keyword two; keyword three
+
+% Write your content here. Use sections as your material requires:
+\section{Section}
+Body text.
+
+% Mechanics (figures, tables, equations, \cref, \citep): see SKILL.md and
+% skeleton-report.tex for the commented snippets.
+
+% --- bibliography: uncomment when you cite something -------------------------
+% \bibliographystyle{plainnat}
+% \bibliography{references}
+
+\end{document}

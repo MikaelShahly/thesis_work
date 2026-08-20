@@ -1,0 +1,16 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/
+projects/
+.DS_Store
+node_modules/
+dist/
+seed_phase.py
+NACA0015 paper.pdf
+practical_meshing_guide_2412
+powerpoint_tutorials_2412
+quick_vizualization
+AgenticResearch

@@ -1,0 +1,40 @@
+
+@tool(
+    "request_subtask_approval",
+    (
+        "Request the user's approval for the current mesh sub-step. "
+        "Call this after each verifiable meshing sub-step (presenting intial mesh plan, blockMesh, "
+        "snappyHexMesh castellation,snappyHexMesh snapping, snappyHexMesh layer addition, …) once you have "
+        "verified the result via checkMesh + log inspection.\n\n"
+        "Do NOT call this at the end of the whole meshing phase — use "
+        "`request_phase_advance` for that.\n\n"
+        "Takes no arguments. The user will either approve (the system "
+        "will inject a 'Proceed' message and you will resume for the "
+        "next sub-task), reply with feedback prefixed by "
+        "[Feedback on mesh]:, or ask a follow-up question. It is "
+        "normal — and expected — to call this multiple times across "
+        "a meshing session."
+    ),
+    {},
+)
+async def request_subtask_approval(args: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "content": [
+            {
+                "type": "text",
+                "text": (
+                    "Approval requested for the current mesh sub-step. "
+                    "Awaiting the user's response. They will either approve "
+                    "(the system will inject a 'Proceed' message and you "
+                    "will resume), provide feedback prefixed with "
+                    "[Feedback on mesh]: (treat as a revision request — "
+                    "edit the relevant dictionaries, re-run only the "
+                    "invalidated meshing stages, re-verify, and call "
+                    "request_subtask_approval again), or ask a follow-up "
+                    "question (answer it; only call request_subtask_approval "
+                    "again if your answer involved actually editing files). — otherwise the existing approval still"
+                    "stands and the user can approve from the pill when ready."
+                ),
+            }
+        ]
+    }

@@ -1,0 +1,54 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      k;
+}
+
+dimensions      [0 2 -2 0 0 0 0];
+
+internalField   uniform 0.0037500000000000007;
+
+boundaryField
+{
+    inlet
+    {
+        type            fixedValue;
+        value           uniform 0.0037500000000000007;
+    }
+    outlet
+    {
+        type            zeroGradient;
+    }
+    walls
+    {
+        type            kqRWallFunction;
+        value           uniform 0.0037500000000000007;
+    }
+    flange
+    {
+        type            kqRWallFunction;
+        value           uniform 0.0037500000000000007;
+    }
+    flange_patch1
+    {
+        type            kqRWallFunction;
+        value           uniform 0.0037500000000000007;
+    }
+    flange_patch2
+    {
+        type            kqRWallFunction;
+        value           uniform 0.0037500000000000007;
+    }
+    flange_patch3
+    {
+        type            kqRWallFunction;
+        value           uniform 0.0037500000000000007;
+    }
+    flange_patch4
+    {
+        type            kqRWallFunction;
+        value           uniform 0.0037500000000000007;
+    }
+}

@@ -1,0 +1,26 @@
+{
+  "surfaceFeatureExtract": {
+    "exit_code": 0,
+    "start_time": 1773503709.163791,
+    "end_time": 1773503709.2748346,
+    "duration_s": 0.11104369163513184
+  },
+  "blockMesh": {
+    "exit_code": 0,
+    "start_time": 1773503709.2754211,
+    "end_time": 1773503709.6502512,
+    "duration_s": 0.3748300075531006
+  },
+  "snappyHexMesh": {
+    "exit_code": 0,
+    "start_time": 1773503709.650641,
+    "end_time": 1773503935.1562247,
+    "duration_s": 225.50558376312256
+  },
+  "checkMesh": {
+    "exit_code": 0,
+    "start_time": 1773503935.1581454,
+    "end_time": 1773503947.7655435,
+    "duration_s": 12.60739803314209
+  }
+}

@@ -1,0 +1,91 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      controlDict;
+}
+
+application     simpleFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         100;
+
+deltaT          1;
+
+writeControl    timeStep;
+
+writeInterval   100;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  8;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+functions
+{
+    yPlus
+    {
+        type            yPlus;
+        libs            (fieldFunctionObjects);
+        writeControl    writeTime;
+    }
+
+    fieldMinMax
+    {
+        type            fieldMinMax;
+        libs            (fieldFunctionObjects);
+        fields          (U p k omega nut);
+        writeControl    timeStep;
+        writeInterval   1;
+    }
+
+    fluxInlet
+    {
+        type            surfaceFieldValue;
+        libs            (fieldFunctionObjects);
+        regionType      patch;
+        name            inlet;
+        operation       sum;
+        fields          (phi);
+        writeFields     false;
+        writeControl    timeStep;
+        writeInterval   1;
+    }
+
+    fluxOutlet
+    {
+        type            surfaceFieldValue;
+        libs            (fieldFunctionObjects);
+        regionType      patch;
+        name            outlet;
+        operation       sum;
+        fields          (phi);
+        writeFields     false;
+        writeControl    timeStep;
+        writeInterval   1;
+    }
+
+    residuals
+    {
+        type            solverInfo;
+        libs            (utilityFunctionObjects);
+        fields          (U p k omega);
+        writeControl    timeStep;
+        writeInterval   1;
+    }
+}

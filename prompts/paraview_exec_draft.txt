@@ -1,0 +1,23 @@
+@tool(
+    "paraview_exec",
+    (
+        "Escape hatch: run arbitrary Python inside the live ParaView "
+        "process. Prefer the dedicated verbs (load_dataset, "
+        "apply_*_filter, set_camera, …) when one fits — `exec` "
+        "produces less structured output and forces traceback reading "
+        "if something breaks. However, using **`paraview_exec`** when it can significantly simplyfy your work and help you acheive your goals easier is completely fine and encouraged. \n\n"
+        "Pass exactly one of:\n"
+        "- `code`: inline Python string. For multi-statement scripts, "
+        "assign the return value to `result` to surface it; for a "
+        "single expression, the value is returned automatically.\n"
+        "- `script_path`: filesystem path; the tool reads the file "
+        "and runs its contents.\n\n"
+        "Bound names already imported in the exec namespace: "
+        "`paraview.simple.*` (everything from that module), "
+        "`servermanager` (paraview.servermanager), and `vtk` "
+        "(`vtkmodules.all`). No imports needed for those.\n\n"
+        "Returns `{stdout, stderr, result, error}`. `error` carries a "
+        "traceback string if the script raised; `result` is `repr()` "
+        "of the value. The script runs on the GUI thread, blocking "
+        "ParaView until it returns; per-call timeout is 10 minutes."
+    ),

@@ -1,0 +1,59 @@
+"""The request_phase_advance tool (mesh phase).
+
+Called by the mesh agent exactly once, when the final mesh has been
+signed off at sub-step level and the phase is complete. On approve,
+the backend transitions the project from `mesh` to `improver`.
+
+The agent layer detects the ToolUseBlock as it streams by and emits
+a `phase_advance_requested` SSE event; the API layer also flips
+`projects.approval_pending` and sets
+`approval_kind="mesh_phase_advance"` so the state survives a page
+reload.
+
+The string returned below is only what the agent itself sees.
+"""
+
+from typing import Any
+
+from claude_agent_sdk import tool
+
+
+@tool(
+    "request_phase_advance",
+    (
+        "Request the user's approval to advance from the meshing phase "
+        "to the improvement phase. Call this exactly once, when the "
+        "final mesh has been approved at sub-step level and all "
+        "artifacts are organised — this is the terminal gesture of "
+        "the meshing phase.\n\n"
+        "Do NOT use this for intermediate sub-steps — "
+        "`request_subtask_approval` is the per-sub-step gesture.\n\n"
+        "Takes no arguments. The user will either approve (the "
+        "pipeline advances to the improvement phase; you will not see "
+        "that turn), reply with feedback prefixed by [Feedback on "
+        "mesh]:, or ask a follow-up question. The approval pill stays "
+        "up across question turns until the user approves or sends "
+        "feedback."
+    ),
+    {},
+)
+async def request_phase_advance(args: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "content": [
+            {
+                "type": "text",
+                "text": (
+                    "Phase-advance approval requested. Awaiting the user's "
+                    "response. They will either approve (the pipeline "
+                    "advances to the improvement phase — you will not see "
+                    "that turn), provide feedback prefixed with "
+                    "[Feedback on mesh]: (treat as a revision request — "
+                    "make the requested changes, re-verify, and call "
+                    "request_phase_advance again once revised), or ask a "
+                    "follow-up question (answer it; only call "
+                    "request_phase_advance again if your answer involved "
+                    "actually editing files)."
+                ),
+            }
+        ]
+    }

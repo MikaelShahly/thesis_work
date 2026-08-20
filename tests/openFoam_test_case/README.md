@@ -1,0 +1,1 @@
+Use this test case as a default openFOAM case for test that require to be tested agains an openFoam case. 

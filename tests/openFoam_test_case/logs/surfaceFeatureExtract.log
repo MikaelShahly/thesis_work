@@ -1,0 +1,93 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2412                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+Build  : _e5c6ccc3-20250814 OPENFOAM=2412 patch=250814 version=2412
+Arch   : "LSB;label=32;scalar=64"
+Exec   : surfaceFeatureExtract
+Date   : Mar 14 2026
+Time   : 16:55:09
+Host   : LAPTOP-6E9TUGSN
+PID    : 48624
+--> FOAM Warning : 
+    From Foam::fileName Foam::cwd_L()
+    in file POSIX.C at line 552
+    PWD is not the cwd() - reverting to physical description
+I/O    : uncollated
+--> FOAM Warning : 
+    From Foam::fileName Foam::cwd_L()
+    in file POSIX.C at line 552
+    PWD is not the cwd() - reverting to physical description
+Case   : /home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case
+nProcs : 1
+trapFpe: Floating point exception trapping enabled (FOAM_SIGFPE).
+fileModificationChecking : Monitoring run-time modified files using timeStampMaster (fileModificationSkew 5, maxFileModificationPolls 20)
+allowSystemOperations : Allowing user-supplied system call operations
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+Create time
+
+
+Note: Feature line extraction only valid on closed manifold surfaces
+
+Reading surfaceFeatureExtractDict
+
+Surfaces     : flange.stl
+Output       : flange
+Load options : offset
+Write options: writeObj=yes writeVTK=off
+
+Statistics:
+Triangles    : 6468 in 4 region(s)
+Vertices     : 3228
+Bounding Box : (-0.026009301 -0.0275 -0.02375) (0.026009301 0.022500001 0.0022501401)
+
+Constructing feature set from included angle 150
+Selecting edges based purely on geometric tests: no
+
+Initial Feature set:
+    points : 18
+    edges  : 776
+    of which
+        region edges   : 376
+        external edges : 278
+        internal edges : 122
+
+Final Feature set:
+    points : 767
+    of which
+        convex             : 4
+        concave            : 4
+        mixed              : 10
+        non-feature        : 749
+    edges  : 776
+    of which
+        external edges     : 488
+        internal edges     : 198
+        flat edges         : 90
+        open edges         : 0
+        multiply connected : 0
+
+Writing extendedFeatureEdgeMesh to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange.extendedFeatureEdgeMesh"
+
+Writing extendedEdgeMesh components to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange"
+Writing 4 convex feature points to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange_convexFeaturePts.obj"
+Writing 4 concave feature points to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange_concaveFeaturePts.obj"
+Writing 10 mixed feature points to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange_mixedFeaturePts.obj"
+Writing 10 mixed feature point structure to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange_mixedFeaturePtsStructure.obj"
+Writing 488 external edges to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange_externalEdges.obj"
+Writing 198 internal edges to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange_internalEdges.obj"
+Writing 90 flat edges to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange_flatEdges.obj"
+Writing 0 open edges to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange_openEdges.obj"
+Writing 0 multiple edges to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange_multipleEdges.obj"
+Writing 376 region edges to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange_regionEdges.obj"
+Writing 776 edge directions to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/extendedFeatureEdgeMesh/flange_edgeDirections.obj"
+
+Writing featureEdgeMesh to "/home/mashahly/Agentic_cfd_meshing/.pytest-artifacts/real_mesh_loop/20260314_165113/case/constant/triSurface/flange.eMesh"
+ExecutionTime = 0.08 s  ClockTime = 0 s
+
+End
+

@@ -1,0 +1,72 @@
+% ============================================================================
+%  preamble.tex — shared baseline for the report/paper skeletons.
+%
+%  A fixed scientific stack: math + units + graphics + tables + citations,
+%  all within the texlive-latex-recommended / -latex-extra / -fonts-recommended
+%  / -science set. Do NOT reach beyond it; if a document truly needs another
+%  package, ask the user to install it (see references/packages.md).
+%
+%  Load order matters and is deliberate:
+%    fonts/encoding -> babel -> math -> siunitx -> graphics/tables
+%    -> csquotes -> natbib -> hyperref -> cleveref (always last).
+% ============================================================================
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[british]{babel}        % hyphenation + language-aware csquotes/cleveref
+% Scalable fonts (lmodern) + full microtype. microtype's font *expansion* needs
+% scalable fonts, so if lmodern is absent (texlive-fonts-recommended not
+% installed) we keep protrusion but disable expansion rather than failing.
+\IfFileExists{lmodern.sty}{%
+  \usepackage{lmodern}%
+  \usepackage{microtype}%
+}{%
+  \usepackage[expansion=false]{microtype}%
+}
+
+% --- page geometry -----------------------------------------------------------
+\usepackage[a4paper,margin=2.5cm]{geometry}  % sensible text width (~16 cm)
+
+% --- mathematics -------------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}             % amsmath superset: \coloneqq, paired delimiters, ...
+\usepackage{bm}                    % bold math for vectors/tensors
+
+% --- units & numbers ---------------------------------------------------------
+\usepackage{siunitx}
+\sisetup{
+  detect-all,                      % match the surrounding font
+  per-mode=symbol,                 % \unit{\meter\per\second} -> m/s
+  separate-uncertainty=true,
+  group-separator={\,},            % 12\,345
+}
+
+% --- graphics & floats -------------------------------------------------------
+\usepackage{graphicx}              % \includegraphics — figures arrive as PDF (vector)
+\usepackage{float}                 % the [H] "here, definitely" placement specifier
+\usepackage{caption}
+\usepackage{subcaption}            % side-by-side subfigures
+\captionsetup{font=small,labelfont=bf,labelsep=period}
+
+% --- tables ------------------------------------------------------------------
+\usepackage{booktabs}              % \toprule \midrule \bottomrule (no vertical rules)
+\usepackage{array}
+
+% --- text quality ------------------------------------------------------------
+\usepackage{xcolor}
+\usepackage{csquotes}              % \enquote{...}
+
+% --- citations: classic BibTeX + natbib --------------------------------------
+\usepackage[numbers,sort&compress]{natbib} % numbered, e.g. [2,4-6]
+% For author-year instead: remove [numbers] and use \bibliographystyle{plainnat}
+% with \citet/\citep producing "Author (year)" / "(Author, year)".
+
+% --- hyperlinks & smart cross-references (near the end) ----------------------
+\usepackage[hidelinks]{hyperref}   % links work but are not coloured/boxed — clean print look
+\usepackage{cleveref}              % MUST be after hyperref: \cref{fig:x}, \cref{eq:y}
+
+% --- generic math conveniences (optional — edit freely) ----------------------
+\renewcommand{\vec}[1]{\bm{#1}}                % bold vectors/tensors
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}

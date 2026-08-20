@@ -1,0 +1,49 @@
+"""The request_approval tool.
+
+Generic gesture: the agent calls this when it believes a phase is
+complete and the user should review. The agent layer detects the
+ToolUseBlock as it streams by and emits an `approval_requested` SSE
+event; the API layer also flips `projects.approval_pending` so the
+state survives a page reload.
+
+The string returned below is only what the agent itself sees.
+"""
+
+from typing import Any
+
+from claude_agent_sdk import tool
+
+
+@tool(
+    "request_approval",
+    (
+        "Request the user's approval to advance to the next phase of the "
+        "pipeline. Call this when you believe the current phase is "
+        "complete and the user should review your output (the file tree, "
+        "the case directory, etc.).\n\n"
+        "Takes no arguments. The user will see a prompt where they can "
+        "either approve, provide feedback, or ask a follow-up question. "
+        "It is normal to call this multiple times across a session — "
+        "after each round of feedback, call it again once you've "
+        "addressed the changes."
+    ),
+    {},
+)
+async def request_approval(args: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "content": [
+            {
+                "type": "text",
+                "text": (
+                    "Approval requested from user. Awaiting their response. "
+                    "They will either approve (handled by the system; you "
+                    "won't see that turn), provide feedback prefixed with "
+                    "[Feedback on case]: (treat as a revision request and "
+                    "call request_approval again once revised), or ask a "
+                    "follow-up question (answer it; only call "
+                    "request_approval again if your answer involved "
+                    "actually editing files)."
+                ),
+            }
+        ]
+    }

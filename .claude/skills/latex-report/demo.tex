@@ -1,0 +1,67 @@
+% ============================================================================
+%  demo.tex — a LaTeX mechanics demonstration and compile smoke test.
+%  Neutral content; it exercises the preamble's features (math, units,
+%  figures, tables, citations, cross-references) so you can confirm the
+%  toolchain works and see how the pieces wire together. NOT a document
+%  structure to copy — the sections here are named after LaTeX features.
+%  Ships with a local references.bib so it compiles on its own.
+%  Compile:  bash scripts/build.sh examples/demo.tex
+% ============================================================================
+\documentclass[11pt,a4paper]{article}
+
+
+\input{../assets/preamble}
+
+\title{LaTeX Mechanics Demonstration}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Mathematics}
+Inline math such as \(a^2 + b^2 = c^2\), and a labelled display equation,
+%
+\begin{equation}
+  \int_{0}^{1} x^2 \, \mathrm{d}x = \frac{1}{3}, \label{eq:demo}
+\end{equation}
+%
+referenced with \cref{eq:demo}. Bold vectors use \(\vec{u}\); paired delimiters
+give \(\abs{x}\) and \(\norm{\vec{v}}\).
+
+\section{Units and numbers}
+Use \texttt{siunitx} rather than typing units: \SI{22}{\meter\per\second},
+\num{1.5e6}, \ang{8}, and \SI{0.5}{\percent}. Inequalities in text need math or
+text commands, e.g.\ \(x < 5\) or \textgreater\ 100 (a bare \verb|<| prints
+garbage under T1).
+
+\section{Figures and tables}
+\Cref{fig:demo} is a vector PDF included at \verb|0.7\textwidth|; \cref{tab:demo}
+uses \texttt{booktabs}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/figure.pdf}
+  \caption{An example figure.}\label{fig:demo}
+\end{figure}
+
+\begin{table}[H]
+  \centering
+  \caption{An example table.}\label{tab:demo}
+  \begin{tabular}{lcc}
+    \toprule
+    Quantity & Symbol & Value \\
+    \midrule
+    Alpha & \(\alpha\) & \num{1.0} \\
+    Beta  & \(\beta\)  & \num{2.5} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\section{Citations}
+A citation renders as \citep{example-article}; see also \citet{example-book}.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,54 @@
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       volScalarField;
+    object      omega;
+}
+
+dimensions      [0 0 -1 0 0 0 0];
+
+internalField   uniform 20.82555522203365;
+
+boundaryField
+{
+    inlet
+    {
+        type            fixedValue;
+        value           uniform 20.82555522203365;
+    }
+    outlet
+    {
+        type            zeroGradient;
+    }
+    walls
+    {
+        type            omegaWallFunction;
+        value           uniform 20.82555522203365;
+    }
+    flange
+    {
+        type            omegaWallFunction;
+        value           uniform 20.82555522203365;
+    }
+    flange_patch1
+    {
+        type            omegaWallFunction;
+        value           uniform 20.82555522203365;
+    }
+    flange_patch2
+    {
+        type            omegaWallFunction;
+        value           uniform 20.82555522203365;
+    }
+    flange_patch3
+    {
+        type            omegaWallFunction;
+        value           uniform 20.82555522203365;
+    }
+    flange_patch4
+    {
+        type            omegaWallFunction;
+        value           uniform 20.82555522203365;
+    }
+}

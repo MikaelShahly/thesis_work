@@ -1,0 +1,73 @@
+    "paraview_operator": {
+        "display_name": "ParaView Operator sub-agent",
+        "description": (
+            "ParaView mutation specialist. Delegate to this sub-agent "
+            "for any request that requires changing the user's live "
+            "ParaView scene — applying or deleting filters, changing "
+            "display/representation/colouring, moving the camera, "
+            "toggling patches, advancing time, etc. Example intents: "
+            "\"set up a good view of the mesh\", \"visualise the "
+            "problem cells\", \"slice through the domain and colour by "
+            "U\", \"show me the wall patches\".\n"
+            "The operator handles the full task: planning the sequence "
+            "of filter/display/camera changes, executing them via the "
+            "ParaView bridge, iterating with screenshots when the "
+            "intent is visual, and reporting back a structured summary "
+            "of the new ParaView state. It does NOT take read-only "
+            "questions that your own ParaView verbs (`get_pipeline`, "
+            "`get_source_info`, `save_screenshot`, …) can answer — "
+            "call those yourself first when you just need orientation.\n"
+            "Give the operator thorough context: the understanding you "
+            "already have of the user's ParaView state, relevant "
+            "constraints from earlier in the conversation, and the "
+            "user's literal request. The more context you pass, the "
+            "less time the operator spends re-reading state."
+        ),
+        "prompt_template": "paraview_operator.txt",
+        # Computed from the PARAVIEW_* constants so the registry can't
+        # drift from the actual MCP tool surface — adding a new bridge
+        # verb to either module flows through here without an edit.
+        "tools": PARAVIEW_READ_TOOLS + PARAVIEW_WRITE_TOOLS + [PARAVIEW_EXEC_TOOL],
+        "model": "claude-sonnet-4-5",
+        "effort": "medium",
+    },
+}
+
+
+
+## Draft for delegation on 2 - 3 tools calls
+    },
+    "paraview_operator": {
+        "display_name": "ParaView Operator sub-agent",
+        "description": (
+            "ParaView mutation specialist for multi-step scene setup. Delegate to this sub-agent "
+            "for any request that requires changing the user's live "
+            "ParaView scene — applying or deleting filters, changing "
+            "display/representation/colouring, moving the camera, "
+            "toggling patches, advancing time, etc that would take more then 2-3 tool calls to do yourself. Example intents: "
+            "\"set up a good view of the mesh\", \"visualise the "
+            "problem cells\", \"slice through the domain and colour by "
+            "U\".\n"
+            "The operator handles the full task: planning the sequence "
+            "of filter/display/camera changes, executing them via the "
+            "ParaView bridge, iterating with screenshots when the "
+            "intent is visual, and reporting back a structured summary "
+            "of the new ParaView state. It does NOT take read-only "
+            "questions that your own ParaView verbs (`get_pipeline`, "
+            "`get_source_info`, `save_screenshot`, …) can answer — "
+            "call those yourself first when you just need orientation.\n"
+            "Give the operator thorough context: the understanding you "
+            "already have of the user's ParaView state, relevant "
+            "constraints from earlier in the conversation, and the "
+            "user's literal request. The more context you pass, the "
+            "less time the operator spends re-reading state."
+        ),
+        "prompt_template": "paraview_operator.txt",
+        # Computed from the PARAVIEW_* constants so the registry can't
+        # drift from the actual MCP tool surface — adding a new bridge
+        # verb to either module flows through here without an edit.
+        "tools": PARAVIEW_READ_TOOLS + PARAVIEW_WRITE_TOOLS + [PARAVIEW_EXEC_TOOL],
+        "model": "claude-sonnet-4-5",
+        "effort": "medium",
+    },
+}
