@@ -2,8 +2,6 @@
 
 An end-to-end agentic CFD pipeline built on the [Claude Agent SDK](https://code.claude.com/docs/en/agent-sdk/overview). The user describes a flow problem in natural language; a multi-phase agent pipeline produces, meshes, runs, and reports on a complete **OpenFOAM 2412** simulation. The shell is FastAPI + SSE on the backend and React + Vite on the frontend; the LLM layer is `claude-agent-sdk`, which subprocesses the Claude Code CLI.
 
-NOTE: use the web_fetch_tool_from_Read branch as it is the up-to-date branch currently. 
-
 NOTE: tool approvals are handled in the config. Set a tool in tools": [], but do not include it in allowed_tools to gate the tool with approval, usefull if you DO NOT WANT arbitrary bash permission for the agent. 
 
 ## What it does
