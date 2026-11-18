@@ -215,35 +215,3 @@ tests/
 docs/                 architecture.md (original, stale) + project_state.md (current snapshot)
 main.py               uvicorn entrypoint
 ```
-
-## Status at a glance
-
-| Surface | Status | Notes |
-|---|---|---|
-| FastAPI + SSE streaming | ✅ shipped | 22 endpoints; token deltas, tool I/O, thinking, file_written, permission/approval flows, compaction, interrupt-aware turn_complete |
-| SQLite persistence | ✅ shipped | Eight tables (projects, sessions, messages, message_segments, model_calls, session_config, agent_events, subagent_narration); idempotent migrations |
-| `simulation_spec` phase | ✅ shipped | Opus 4.8; `present_specification` + `WebSearch` + `web_fetch` + `paper_search` + `AskUserQuestion` + Read/Write/Edit/Bash + `cfd_visualization` skill |
-| `case_builder` phase | ✅ shipped | Sonnet 4.6; Read/Write/Edit/Glob/Grep/Bash + `Agent` + `request_phase_advance`; `cwd=project root`; OpenFOAM source-explorer sub-agent |
-| `mesh` phase | ✅ shipped (known rough edges) | Opus 4.8 [1m]; ParaView read+write verbs + `paraview_exec`; sub-step + phase-advance approvals; openfoam-explorer + cfd-general + verification sub-agents |
-| `improver` phase | ✅ shipped (polishing) | Opus 4.8 [1m]; ParaView read+write+exec (gated); experiment / mesh / phase-advance approvals; `cfd_general_purpose` sub-agent |
-| `post_process` phase | ✅ shipped | Sonnet 4.6; Read/Write/Edit/Bash + `Agent` + ParaView read+exec + `latex-report`/`html-report`/`visualization` skills; emits `Reports/` |
-| Sub-agent infrastructure | ✅ shipped | `SUBAGENT_REGISTRY` + `build_subagents()`; four sub-agents (openfoam-explorer, cfd_general_purpose, verification, paraview_operator) |
-| Custom `web_fetch` tool | ✅ shipped | Replaces the built-in WebFetch; robots-aware, SSRF-guarded, 50 MB cap; stages PDF/HTML/text + figures + TOC into a per-project cache |
-| `paper_search` tool | ✅ shipped | Concurrent fan-out across OpenAlex / Semantic Scholar / arXiv / NASA NTRS; dedup + direct OA PDF links |
-| Permission gate | ✅ shipped | Registry + frontend `PermissionPanel`; Allow / Deny / Deny-with-feedback. Bash, `paraview_exec`, ParaView writes, `web_fetch` always gated |
-| Context-compaction surfacing | ✅ shipped | SDK compaction → transient spinner + persisted in-chat divider (survives reload) |
-| `AskUserQuestion` flow | ✅ shipped | `QuestionPanel` collects answers; resolves the tool's Future |
-| ParaView integration | ✅ shipped | Singleton bridge subprocess on port 8765; launch/load endpoints; 409-conflict + orphan recovery; crash-log capture |
-| Geometry creation (CAD stack + Blender) | ✅ shipped | Python CAD stack (cadquery/sdf/manifold3d/pymeshfix/trimesh/pyvista/pymeshlab/gmsh) via `uv`; optional headless Blender escalation, agent-detected on PATH |
-| Geometry upload | ✅ shipped | `Geometry/` subfolder; 5 GiB cap; 12 allowed extensions |
-| File-write tracker + sidebar tree + toasts | ✅ shipped | Eager subfolders; "is-new" dots; OpenFOAM dict viewer auto-applied to `Case/` and `Mesh/` |
-| Turn interrupt | ✅ shipped | `/interrupt` cancels an in-flight turn mid-stream |
-| Tests | ✅ shipped | 27 basic + 16 production round-trips (opt-in) |
-
-
-## Tradeoffs to know about
-
-- **Per-message latency**: each turn drives a Claude Code subprocess via a persistent SessionWorker — a startup cost versus an in-process API client (amortised across turns once the worker is live).
-- **Concurrency model**: each in-flight turn = one subprocess. This is a single-user local dev project, not a multi-tenant service.
-- **No fine-grained context tuning**: SDK auto-compaction is opaque (you see when it happens via the divider, but not the knobs).
-- **No external tracing**: the SDK subprocess is a black box from outside; observability is limited to what the backend records in SQLite.
